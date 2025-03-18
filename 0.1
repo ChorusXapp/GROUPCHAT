@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #chat {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+        }
+        #message {
+            width: 80%;
+        }
+        #nickname {
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Group Chat</h1>
+    <div id="nickname-container">
+        <input type="text" id="nickname" placeholder="Enter your nickname">
+        <button onclick="setNickname()">Set Nickname</button>
+    </div>
+    <div id="chat-container" style="display:none;">
+        <div id="chat"></div>
+        <input type="text" id="message" placeholder="Type a message">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        let nickname = '';
+
+        function setNickname() {
+            nickname = document.getElementById('nickname').value;
+            if (nickname) {
+                document.getElementById('nickname-container').style.display = 'none';
+                document.getElementById('chat-container').style.display = 'block';
+            } else {
+                alert('Please enter a nickname');
+            }
+        }
+
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            if (message) {
+                const chat = document.getElementById('chat');
+                const newMessage = document.createElement('div');
+                newMessage.textContent = `${nickname}: ${message}`;
+                chat.appendChild(newMessage);
+                document.getElementById('message').value = '';
+                chat.scrollTop = chat.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
